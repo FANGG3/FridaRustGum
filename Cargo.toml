@@ -1,0 +1,21 @@
+[package]
+name = "test_ndk"
+version = "0.1.0"
+edition = "2021"
+
+
+
+[dependencies]
+android_logger = "0.14.1"
+ctor = "0.2.8"
+frida-gum = "0.15.1"
+libc = "0.2.164"
+log = "0.4.22"
+
+[lib]
+crate_type=["cdylib","lib"]
+
+
+[[example]]
+name = "test1"
+crate-type = ["bin"]
