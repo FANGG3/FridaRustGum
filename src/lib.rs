@@ -1,12 +1,16 @@
+pub mod trace;
+pub mod error;
+
 use frida_gum::interceptor::Interceptor;
 use frida_gum::{interceptor, Gum, Module, NativePointer};
-use std::ffi::{CStr, CString};
+use std::ffi::CStr;
 use std::sync::OnceLock;
 use {
     android_logger::Config,
     ctor::ctor,
     libc::{c_char, c_int, c_void},
     log::{info, LevelFilter},
+    trace::Trace,
 };
 
 #[ctor]
@@ -17,9 +21,12 @@ fn init() {
             .with_tag("rustNDK"),
     );
     info!("init success");
+
+
     // unsafe {
     //     hook_open();
     // }
+    info!("init over");
 }
 
 type OpenFunc = unsafe extern "C" fn(*const c_char, flags: c_int) -> c_int;
@@ -45,3 +52,4 @@ unsafe extern "C" fn open_detour(name: *const c_char, flags: c_int) -> c_int {
          ));
      }
 }
+
